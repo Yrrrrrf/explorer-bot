@@ -1,8 +1,11 @@
 # project
 cheatsheet/
 docs/
+ 
+# workspace
+**.code-workspace
 
-# Plarform IO
+# Platform IO
 .pio
 **/.vscode
 # todo: Remove this for add the correct paths (on the PlatformIO project)

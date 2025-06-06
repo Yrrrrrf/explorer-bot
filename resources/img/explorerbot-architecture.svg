@@ -1,0 +1,366 @@
+<svg width="1500" height="900" viewBox="0 0 1500 900" xmlns="http://www.w3.org/2000/svg" font-family="Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">
+  <defs>
+    <!-- Gradientes dinámicos -->
+    <linearGradient id="mainGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#667eea;stop-opacity:0.2"/>
+      <stop offset="100%" style="stop-color:#764ba2;stop-opacity:0.2"/>
+    </linearGradient>
+    
+    <linearGradient id="controllerGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#4facfe;stop-opacity:0.2"/>
+      <stop offset="100%" style="stop-color:#00f2fe;stop-opacity:0.2"/>
+    </linearGradient>
+    
+    <linearGradient id="senseGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#43e97b;stop-opacity:0.2"/>
+      <stop offset="100%" style="stop-color:#38f9d7;stop-opacity:0.2"/>
+    </linearGradient>
+    
+    <linearGradient id="thinkGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#fa709a;stop-opacity:0.2"/>
+      <stop offset="100%" style="stop-color:#fee140;stop-opacity:0.2"/>
+    </linearGradient>
+    
+    <linearGradient id="actGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#a8edea;stop-opacity:0.2"/>
+      <stop offset="100%" style="stop-color:#fed6e3;stop-opacity:0.2"/>
+    </linearGradient>
+
+    <!-- Filtros y efectos -->
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="4" stdDeviation="8" flood-color="#000" flood-opacity="0.15"/>
+    </filter>
+
+    <!-- Marcadores de flecha -->
+    <marker id="arrowData" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M 0 0 L 12 6 L 0 12 L 3 6 z" fill="#10b981"/>
+    </marker>
+    
+    <marker id="arrowControl" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M 0 0 L 12 6 L 0 12 L 3 6 z" fill="#3b82f6"/>
+    </marker>
+    
+    <marker id="arrowProcess" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M 0 0 L 12 6 L 0 12 L 3 6 z" fill="#f59e0b"/>
+    </marker>
+
+    <style>
+      .title { 
+        font-size: 36px; 
+        font-weight: 900; 
+        fill: #1e293b; 
+        text-anchor: middle;
+        letter-spacing: -0.02em;
+      }
+      .subtitle {
+        font-size: 18px;
+        font-weight: 600;
+        fill: #64748b;
+        text-anchor: middle;
+      }
+      .section-title { 
+        font-size: 20px; 
+        font-weight: 700; 
+        fill: #334155; 
+        text-anchor: middle;
+      }
+      .component-title { 
+        font-size: 16px; 
+        font-weight: 700; 
+        fill: #1e293b; 
+        text-anchor: middle;
+      }
+      .component-subtitle { 
+        font-size: 12px; 
+        fill: #64748b; 
+        text-anchor: middle;
+        font-family: 'JetBrains Mono', monospace;
+      }
+      .function-text {
+        font-size: 11px;
+        fill: #059669;
+        text-anchor: middle;
+        font-family: 'JetBrains Mono', monospace;
+      }
+      .process-label {
+        font-size: 14px;
+        font-weight: 600;
+        fill: #ffffff;
+        text-anchor: middle;
+      }
+      .data-flow {
+        stroke: #10b981;
+        stroke-width: 3;
+        fill: none;
+        marker-end: url(#arrowData);
+        opacity: 0.8;
+      }
+      .control-flow {
+        stroke: #3b82f6;
+        stroke-width: 3;
+        fill: none;
+        marker-end: url(#arrowControl);
+        opacity: 0.8;
+      }
+      .process-flow {
+        stroke: #f59e0b;
+        stroke-width: 3;
+        fill: none;
+        marker-end: url(#arrowProcess);
+        opacity: 0.8;
+      }
+      .component-box {
+        fill: #ffffff;
+        stroke: rgba(148, 163, 184, 0.3);
+        stroke-width: 2;
+        rx: 12;
+        ry: 12;
+        filter: url(#shadow);
+      }
+      .cycle-indicator {
+        font-size: 16px;
+        font-weight: 800;
+        text-anchor: middle;
+      }
+      .pulse {
+        animation: pulseAnimation 2s ease-in-out infinite;
+      }
+      .rotate {
+        animation: rotateAnimation 4s linear infinite;
+      }
+      .dataFlow {
+        animation: dashAnimation 2s linear infinite;
+        stroke-dasharray: 10,5;
+      }
+      @keyframes pulseAnimation {
+        0%, 100% { opacity: 0.6; transform: scale(1); }
+        50% { opacity: 1; transform: scale(1.05); }
+      }
+      @keyframes rotateAnimation {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+      }
+      @keyframes dashAnimation {
+        from { stroke-dashoffset: 0; }
+        to { stroke-dashoffset: 15; }
+      }
+    </style>
+  </defs>
+
+  <!-- Fondo -->
+  <rect width="100%" height="100%" fill="url(#mainGradient)"/>
+
+  <!-- Título principal -->
+  <text x="750" y="50" class="title">ExplorerBot - Arquitectura de Control Inteligente</text>
+  <text x="750" y="75" class="subtitle">Ciclo Percibir → Pensar → Actuar</text>
+
+  <!-- Controlador Central (main.cpp) -->
+  <g transform="translate(600, 120)">
+    <rect width="300" height="100" rx="15" fill="url(#controllerGradient)" stroke="#3b82f6" stroke-width="3" filter="url(#shadow)"/>
+    <text x="150" y="35" class="section-title">main.cpp</text>
+    <text x="150" y="55" class="component-subtitle">(Director de Orquesta)</text>
+    <text x="150" y="75" class="function-text">loop() { percibir → pensar → actuar }</text>
+    
+    <!-- Indicador de ciclo rotatorio -->
+    <g transform="translate(250, 25)" class="rotate">
+      <circle cx="0" cy="0" r="15" fill="#3b82f6" opacity="0.2"/>
+      <path d="M -10 0 A 10 10 0 1 1 0 -10" stroke="#3b82f6" stroke-width="3" fill="none" marker-end="url(#arrowControl)"/>
+    </g>
+  </g>
+
+  <!-- Sección PERCIBIR (SENSE) -->
+  <rect x="50" y="280" width="450" height="280" rx="20" fill="url(#senseGradient)" stroke="#10b981" stroke-width="2"/>
+  <text x="275" y="310" class="section-title">1. PERCIBIR (SENSE)</text>
+  
+  <!-- Componentes de Sensores -->
+  <g transform="translate(80, 340)">
+    <rect class="component-box" width="170" height="100"/>
+    <text x="85" y="25" class="component-title">Radar</text>
+    <text x="85" y="40" class="component-subtitle">(Los Sentidos)</text>
+    <text x="85" y="60" class="function-text">getDistanceAt(angle)</text>
+    <text x="85" y="75" class="function-text">Servo + NewPing</text>
+    <text x="85" y="90" class="function-text">→ Distancia en cm</text>
+    
+    <!-- Sensor radar animado -->
+    <g transform="translate(140, 30)" class="pulse">
+      <circle cx="0" cy="0" r="8" fill="#10b981"/>
+      <path d="M -15 0 A 15 15 0 0 1 0 -15" stroke="#10b981" stroke-width="2" fill="none" opacity="0.6"/>
+    </g>
+  </g>
+  
+  <g transform="translate(280, 340)">
+    <rect class="component-box" width="170" height="100"/>
+    <text x="85" y="25" class="component-title">Odometry</text>
+    <text x="85" y="40" class="component-subtitle">(Propiocepción)</text>
+    <text x="85" y="60" class="function-text">update() → (x,y,θ)</text>
+    <text x="85" y="75" class="function-text">Encoders + Matemática</text>
+    <text x="85" y="90" class="function-text">→ Posición global</text>
+    
+    <!-- Indicador de posición -->
+    <g transform="translate(140, 30)" class="pulse">
+      <circle cx="0" cy="0" r="6" fill="#10b981"/>
+      <circle cx="0" cy="0" r="12" fill="none" stroke="#10b981" stroke-width="1" opacity="0.4"/>
+    </g>
+  </g>
+
+  <!-- Fórmulas de Odometría -->
+  <g transform="translate(80, 460)">
+    <rect width="370" height="80" rx="10" fill="rgba(16, 185, 129, 0.1)" stroke="#10b981" stroke-dasharray="3,3"/>
+    <text x="10" y="20" style="font-size: 12px; fill: #059669; font-weight: 600;">Fórmulas Clave:</text>
+    <text x="10" y="35" style="font-size: 11px; fill: #059669; font-family: monospace;">delta_distance = (distLeft + distRight) / 2.0</text>
+    <text x="10" y="50" style="font-size: 11px; fill: #059669; font-family: monospace;">delta_theta = (distRight - distLeft) / WHEEL_BASE</text>
+    <text x="10" y="65" style="font-size: 11px; fill: #059669; font-family: monospace;">x += delta_distance * cos(theta + delta_theta/2)</text>
+  </g>
+
+  <!-- Sección PENSAR (THINK) -->
+  <rect x="550" y="280" width="400" height="280" rx="20" fill="url(#thinkGradient)" stroke="#f59e0b" stroke-width="2"/>
+  <text x="750" y="310" class="section-title">2. PENSAR (THINK/PLAN)</text>
+  
+  <g transform="translate(580, 340)">
+    <rect class="component-box" width="340" height="100"/>
+    <text x="170" y="25" class="component-title">Mapper</text>
+    <text x="170" y="40" class="component-subtitle">(El Cerebro)</text>
+    <text x="170" y="60" class="function-text">update(position, obstacles)</text>
+    <text x="170" y="75" class="function-text">Actualizar mapa mental del mundo</text>
+    <text x="170" y="90" class="function-text">→ Decisión: ¿avanzar o girar?</text>
+    
+    <!-- Cerebro pensando -->
+    <g transform="translate(300, 30)" class="pulse">
+      <circle cx="0" cy="0" r="10" fill="#f59e0b"/>
+      <circle cx="-3" cy="-3" r="2" fill="#ffffff"/>
+      <circle cx="3" cy="-3" r="2" fill="#ffffff"/>
+      <path d="M -5 5 Q 0 8 5 5" stroke="#ffffff" stroke-width="2" fill="none"/>
+    </g>
+  </g>
+
+  <!-- Algoritmo de decisión -->
+  <g transform="translate(580, 460)">
+    <rect width="340" height="80" rx="10" fill="rgba(245, 158, 11, 0.1)" stroke="#f59e0b" stroke-dasharray="3,3"/>
+    <text x="10" y="20" style="font-size: 12px; fill: #d97706; font-weight: 600;">Lógica de Decisión:</text>
+    <text x="10" y="35" style="font-size: 11px; fill: #d97706; font-family: monospace;">if (obstáculo_detectado) → girar_aleatorio()</text>
+    <text x="10" y="50" style="font-size: 11px; fill: #d97706; font-family: monospace;">else → avanzar_hacia_adelante()</text>
+    <text x="10" y="65" style="font-size: 11px; fill: #d97706; font-family: monospace;">mapper.update(posición_actual, obstáculos)</text>
+  </g>
+
+  <!-- Sección ACTUAR (ACT) -->
+  <rect x="1000" y="280" width="400" height="280" rx="20" fill="url(#actGradient)" stroke="#8b5cf6" stroke-width="2"/>
+  <text x="1200" y="310" class="section-title">3. ACTUAR (ACT)</text>
+  
+  <g transform="translate(1030, 340)">
+    <rect class="component-box" width="340" height="100"/>
+    <text x="170" y="25" class="component-title">Chassis</text>
+    <text x="170" y="40" class="component-subtitle">(Los Músculos)</text>
+    <text x="170" y="60" class="function-text">move(velIzq, velDer)</text>
+    <text x="170" y="75" class="function-text">Control L298N Driver</text>
+    <text x="170" y="90" class="function-text">→ Movimiento físico</text>
+    
+    <!-- Ruedas girando -->
+    <g transform="translate(300, 30)">
+      <g class="rotate">
+        <circle cx="0" cy="0" r="10" fill="none" stroke="#8b5cf6" stroke-width="3"/>
+        <line x1="-7" y1="-7" x2="7" y2="7" stroke="#8b5cf6" stroke-width="2"/>
+        <line x1="-7" y1="7" x2="7" y2="-7" stroke="#8b5cf6" stroke-width="2"/>
+      </g>
+    </g>
+  </g>
+
+  <!-- Control de motores -->
+  <g transform="translate(1030, 460)">
+    <rect width="340" height="80" rx="10" fill="rgba(139, 92, 246, 0.1)" stroke="#8b5cf6" stroke-dasharray="3,3"/>
+    <text x="10" y="20" style="font-size: 12px; fill: #7c3aed; font-weight: 600;">Control de Hardware:</text>
+    <text x="10" y="35" style="font-size: 11px; fill: #7c3aed; font-family: monospace;">digitalWrite(IN1-IN4) → Dirección</text>
+    <text x="10" y="50" style="font-size: 11px; fill: #7c3aed; font-family: monospace;">analogWrite(ENA/ENB) → Velocidad PWM</text>
+    <text x="10" y="65" style="font-size: 11px; fill: #7c3aed; font-family: monospace;">Traducir (-255,255) → estados L298N</text>
+  </g>
+
+  <!-- Mundo Físico -->
+  <rect x="200" y="620" width="1100" height="120" rx="15" fill="rgba(100, 116, 139, 0.1)" stroke="#64748b" stroke-width="2"/>
+  <text x="750" y="650" class="section-title">MUNDO FÍSICO</text>
+  <text x="750" y="675" class="component-subtitle">Motores, Sensores Ultrasónicos, Servo, Encoders</text>
+
+  <!-- Componentes físicos -->
+  <g transform="translate(300, 700)">
+    <rect width="80" height="40" rx="5" fill="#64748b" opacity="0.6"/>
+    <text x="40" y="25" style="font-size: 10px; fill: #ffffff; text-anchor: middle;">Motores</text>
+  </g>
+  <g transform="translate(450, 700)">
+    <rect width="80" height="40" rx="5" fill="#64748b" opacity="0.6"/>
+    <text x="40" y="25" style="font-size: 10px; fill: #ffffff; text-anchor: middle;">Ultrasonido</text>
+  </g>
+  <g transform="translate(600, 700)">
+    <rect width="80" height="40" rx="5" fill="#64748b" opacity="0.6"/>
+    <text x="40" y="25" style="font-size: 10px; fill: #ffffff; text-anchor: middle;">Servo</text>
+  </g>
+  <g transform="translate(750, 700)">
+    <rect width="80" height="40" rx="5" fill="#64748b" opacity="0.6"/>
+    <text x="40" y="25" style="font-size: 10px; fill: #ffffff; text-anchor: middle;">Encoders</text>
+  </g>
+
+  <!-- Flujos de datos y control -->
+  
+  <!-- Control del main.cpp hacia cada sección -->
+  <path d="M 650 220 L 275 280" class="control-flow"/>
+  <text x="450" y="245" style="font-size: 12px; fill: #3b82f6; font-weight: 600;">1. "Percibe"</text>
+  
+  <path d="M 750 220 L 750 280" class="control-flow"/>
+  <text x="780" y="250" style="font-size: 12px; fill: #3b82f6; font-weight: 600;">2. "Piensa"</text>
+  
+  <path d="M 850 220 L 1200 280" class="control-flow"/>
+  <text x="1050" y="245" style="font-size: 12px; fill: #3b82f6; font-weight: 600;">3. "Actúa"</text>
+
+  <!-- Flujo de datos entre secciones -->
+  <path d="M 500 400 L 550 400" class="data-flow dataFlow"/>
+  <text x="525" y="390" style="font-size: 11px; fill: #10b981; font-weight: 600;">Datos</text>
+  <text x="525" y="420" style="font-size: 10px; fill: #059669;">sensoriales</text>
+  
+  <path d="M 950 400 L 1000 400" class="data-flow dataFlow"/>
+  <text x="975" y="390" style="font-size: 11px; fill: #10b981; font-weight: 600;">Comandos</text>
+  <text x="975" y="420" style="font-size: 10px; fill: #059669;">de acción</text>
+
+  <!-- Feedback del mundo físico -->
+  <path d="M 340 620 L 165 440" class="process-flow dataFlow"/>
+  <text x="220" y="580" style="font-size: 10px; fill: #f59e0b; transform: rotate(-45deg);">Pulsos encoders</text>
+  
+  <path d="M 490 620 L 165 380" class="process-flow dataFlow"/>
+  <text x="280" y="520" style="font-size: 10px; fill: #f59e0b; transform: rotate(-35deg);">Ecos ultrasónicos</text>
+  
+  <path d="M 1200 620 L 1200 560" class="process-flow dataFlow"/>
+  <text x="1220" y="590" style="font-size: 10px; fill: #f59e0b;">Movimiento</text>
+
+  <!-- Indicadores de estado del ciclo -->
+  <g transform="translate(100, 100)">
+    <circle cx="0" cy="0" r="25" fill="#10b981" class="pulse"/>
+    <text x="0" y="5" class="process-label">SENSE</text>
+    <text x="0" y="50" style="font-size: 12px; fill: #10b981; text-anchor: middle; font-weight: 600;">Activo</text>
+  </g>
+  
+  <g transform="translate(750, 100)">
+    <circle cx="0" cy="0" r="25" fill="#f59e0b" class="pulse"/>
+    <text x="0" y="5" class="process-label">THINK</text>
+    <text x="0" y="50" style="font-size: 12px; fill: #f59e0b; text-anchor: middle; font-weight: 600;">Procesando</text>
+  </g>
+  
+  <g transform="translate(1400, 100)">
+    <circle cx="0" cy="0" r="25" fill="#8b5cf6" class="pulse"/>
+    <text x="0" y="5" class="process-label">ACT</text>
+    <text x="0" y="50" style="font-size: 12px; fill: #8b5cf6; text-anchor: middle; font-weight: 600;">Ejecutando</text>
+  </g>
+
+  <!-- Ciclo de retroalimentación -->
+  <path d="M 1350 150 Q 1450 300 1400 450 Q 1350 600 1200 680 Q 750 750 300 680 Q 50 600 100 450 Q 150 300 250 150" 
+        stroke="#6366f1" stroke-width="4" fill="none" stroke-dasharray="15,10" class="dataFlow" opacity="0.6"/>
+  
+  <!-- Etiqueta del ciclo -->
+  <text x="750" y="800" style="font-size: 16px; fill: #6366f1; font-weight: 700; text-anchor: middle;">
+    Bucle de Control Continuo: Percibir → Pensar → Actuar → Repetir
+  </text>
+
+</svg>
