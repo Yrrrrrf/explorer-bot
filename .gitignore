@@ -1,0 +1,10 @@
+# project
+cheatsheet/
+docs/
+
+# Plarform IO
+.pio
+**/.vscode
+# todo: Remove this for add the correct paths (on the PlatformIO project)
+**/include
+**/test
