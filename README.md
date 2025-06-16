@@ -39,9 +39,9 @@ Esta es la lista de hardware específico utilizado para construir el ExplorerBot
 | Fase                                      | Estado |
 | ----------------------------------------- | :----: |
 | Selección de Hardware y Ensamblaje Inicial|   ✅   |
-| Control Básico de Motores                 |   🔄   |
-| Integración de Encoders (Odometría)       |   📅   |
-| Integración de Sensores de Distancia      |   📅   |
+| Control Básico de Motores                 |   ✅   |
+| Integración de Encoders (Odometría)       |   ✅   |
+| Integración de Sensores de Distancia      |   ✅   |
 | Desarrollo del Algoritmo de Mapeo         |   📅   |
 | Pruebas de Navegación y Mapeo Integrado   |   📅   |
 | Generación del Mapa Visual                |   📅   |
